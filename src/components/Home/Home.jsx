@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useVolunteers from "../../hooks/useVolunteers";
 import Loading from "../Loading/Loading";
@@ -6,6 +6,21 @@ import Volunteer from "../Volunteer/Volunteer";
 
 const Home = () => {
   const { volunteers, loading } = useVolunteers();
+  const [search, setSearch] = useState("");
+  const [searchedVolunteers, setSearchedVolunteers] = useState([]);
+
+  /* for default */
+  useEffect(() => {
+    setSearchedVolunteers(volunteers);
+  }, [volunteers]);
+
+  /* handle search  */
+  const handleSearchTrigger = () => {
+    const searchVolunteers = volunteers.filter((volunteer) =>
+      volunteer.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchedVolunteers(searchVolunteers);
+  };
   return (
     <section id="home">
       <div className="container">
@@ -15,13 +30,18 @@ const Home = () => {
             <p>charity is most unique virtue in the world.</p>
           </div>
           <div className="search">
-            <input type="search" placeholder="Search Volunteers" />
-            <button>Search</button>
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search Volunteers"
+            />
+            <button onClick={handleSearchTrigger}>Search</button>
           </div>
         </SectionTitle>
         {loading ? (
           <div className="volunteer-container">
-            {volunteers.map((volunteer) => (
+            {searchedVolunteers.map((volunteer) => (
               <Volunteer key={volunteer._id} {...volunteer} />
             ))}
           </div>
