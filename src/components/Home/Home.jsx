@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import useVolunteers from "../../hooks/useVolunteers";
+import Loading from "../Loading/Loading";
 import Volunteer from "../Volunteer/Volunteer";
 
 const Home = () => {
+  const { volunteers, loading } = useVolunteers();
   return (
     <section id="home">
       <div className="container">
@@ -16,12 +19,15 @@ const Home = () => {
             <button>Search</button>
           </div>
         </SectionTitle>
-        <div className="volunteer-container">
-          <Volunteer />
-          <Volunteer />
-          <Volunteer />
-          <Volunteer />
-        </div>
+        {loading ? (
+          <div className="volunteer-container">
+            {volunteers.map((volunteer) => (
+              <Volunteer key={volunteer._id} {...volunteer} />
+            ))}
+          </div>
+        ) : (
+          <Loading />
+        )}
       </div>
     </section>
   );

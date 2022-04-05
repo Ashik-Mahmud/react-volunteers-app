@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Volunteer = () => {
+const Volunteer = ({ title, img }) => {
   return (
     <VolunteerContainer>
       <div className="image">
-        <img src="https://imgur.com/Q3D72V1.png" alt="child" />
+        <img src={img} alt={title} />
       </div>
       <div className="info">
-        <h3>Child Abuse</h3>
+        <h3>{title}</h3>
         <button>Donate</button>
       </div>
     </VolunteerContainer>
@@ -44,9 +44,6 @@ const VolunteerContainer = styled.div`
       font-size: 0.9rem;
       border-radius: 5px;
     }
-  }
-  h3 {
-    color: var(--primary-color);
   }
 `;
 export default Volunteer;

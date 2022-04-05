@@ -28,6 +28,9 @@ const NavContainer = styled.div`
   box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.1);
   padding: 1rem 2rem;
   border-radius: 50px;
+  z-index: 5;
+  background-color: #ffffffc7;
+  backdrop-filter: blur(4px);
   ul {
     display: flex;
     align-items: center;
